@@ -24,15 +24,25 @@ https://raw.githubusercontent.com/reonokiy/sing-box-ruleset/rule-set/<name>.json
 | `geosite-category-public-tracker` | Public BitTorrent trackers |
 | `geosite-category-ads-all` | Ad / tracking / analytics domains |
 | `geosite-bilibili` | Bilibili (mainland: site, API, CDN, games) |
-| `geosite-cn-common` | Common mainland China sites (Baidu/Ali/Tencent/ByteDance/…) |
+| `geosite-<app>` | One set per mainland app/company (`geosite-baidu`, `geosite-tencent`, `geosite-bytedance`, …) |
+| `geosite-cn-common` | Aggregate of all `geosite-<app>` China sets (one tag for configs) |
 
 These are **hand-curated**, not generated from upstream. They are starter
 lists meant to be grown over time — add domains to the relevant
 `source/*.json` and push; CI rebuilds the `rule-set` branch automatically.
 
-`geosite-bilibili` and `geosite-cn-common` deliberately exclude
+`geosite-bilibili` and the per-app China sets deliberately exclude
 overseas-facing variants (e.g. `bilibili.tv`) since they are consumed for
 **China-direct** routing.
+
+### Aggregates
+
+`aggregates/<name>.txt` lists member rule-set names (one per line, `#`
+comments allowed). CI merges those members' rules into a single
+`<name>.srs` / `<name>.json` (OR'd, equivalent to referencing them all).
+`geosite-cn-common` is the aggregate of every `geosite-<app>` China set,
+so configs reference one tag instead of dozens while each app stays an
+independent, separately-consumable rule set.
 
 ## Mirrored from upstream
 

@@ -49,6 +49,22 @@ jobs:
             echo "compiled $name"
           done
 
+      - name: Build aggregates
+        run: |
+          set -euo pipefail
+          # aggregates/<name>.txt lists member rule-set names; their source
+          # rules are merged (OR'd) into a single <name> set so configs can
+          # reference one tag instead of dozens.
+          for m in aggregates/*.txt; do
+            name="$(basename "$m" .txt)"
+            mapfile -t members < <(grep -vE '^\s*(#|$)' "$m")
+            files=(); for x in "${members[@]}"; do files+=("source/$x.json"); done
+            jq -s '{version: 1, rules: (map(.rules) | add)}' "${files[@]}" \
+              > "$OUT/$name.json"
+            sing-box rule-set compile --output "$OUT/$name.srs" "$OUT/$name.json"
+            echo "aggregated $name from ${#members[@]} sets"
+          done
+
       - name: Mirror upstream rule sets
         run: |
           set -euo pipefail

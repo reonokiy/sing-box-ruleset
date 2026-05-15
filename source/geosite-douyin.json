@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_suffix": [
+        "douyin.com",
+        "douyinpic.com",
+        "douyinstatic.com",
+        "douyinvod.com"
+      ]
+    }
+  ]
+}

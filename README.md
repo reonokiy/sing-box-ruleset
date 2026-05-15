@@ -24,25 +24,29 @@ https://raw.githubusercontent.com/reonokiy/sing-box-ruleset/rule-set/<name>.json
 | `geosite-category-public-tracker` | Public BitTorrent trackers |
 | `geosite-category-ads-all` | Ad / tracking / analytics domains |
 | `geosite-bilibili` | Bilibili (mainland: site, API, CDN, games) |
-| `geosite-<app>` | One set per mainland app/company (`geosite-baidu`, `geosite-tencent`, `geosite-bytedance`, …) |
-| `geosite-cn-common` | Aggregate of all `geosite-<app>` China sets (one tag for configs) |
+| `source/cn/geosite-<app>` | One set per mainland app/company (`geosite-baidu`, `geosite-tencent`, `geosite-bytedance`, …) |
+| `geosite-cn-common` | CI aggregate of every `source/cn/` set (one tag for configs) |
 
 These are **hand-curated**, not generated from upstream. They are starter
 lists meant to be grown over time — add domains to the relevant
-`source/*.json` and push; CI rebuilds the `rule-set` branch automatically.
+`source/**.json` and push; CI rebuilds the `rule-set` branch automatically.
 
 `geosite-bilibili` and the per-app China sets deliberately exclude
 overseas-facing variants (e.g. `bilibili.tv`) since they are consumed for
 **China-direct** routing.
 
-### Aggregates
+### Layout
 
-`aggregates/<name>.txt` lists member rule-set names (one per line, `#`
-comments allowed). CI merges those members' rules into a single
-`<name>.srs` / `<name>.json` (OR'd, equivalent to referencing them all).
-`geosite-cn-common` is the aggregate of every `geosite-<app>` China set,
-so configs reference one tag instead of dozens while each app stays an
-independent, separately-consumable rule set.
+- `source/*.json` — top-level sets, each compiled to `<name>.srs`.
+- `source/cn/*.json` — per-app mainland-China sets; each is **also** its
+  own `<name>.srs`, **and** all of them are merged (OR'd) by CI into a
+  single `geosite-cn-common.srs`. Drop a new `source/cn/geosite-foo.json`
+  in and it joins the aggregate automatically — no manifest, the directory
+  is the membership.
+
+> The merge is a CI convenience, **not** a sing-box feature: `rule-set
+> compile` takes one source file. sing-box's native ways to combine are a
+> multi-rule source file or `"rule_set": ["a","b",…]` in config.
 
 ## Mirrored from upstream
 

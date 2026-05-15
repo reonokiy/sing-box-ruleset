@@ -42,28 +42,25 @@ jobs:
           set -euo pipefail
           out="$(mktemp -d)"
           echo "OUT=$out" >> "$GITHUB_ENV"
-          for f in source/*.json; do
+          # every *.json under source/ (incl. source/cn/) is its own set
+          find source -name '*.json' | sort | while read -r f; do
             name="$(basename "$f" .json)"
             sing-box rule-set compile --output "$out/$name.srs" "$f"
             cp "$f" "$out/$name.json"
             echo "compiled $name"
           done
 
-      - name: Build aggregates
+      - name: Build geosite-cn-common aggregate
         run: |
           set -euo pipefail
-          # aggregates/<name>.txt lists member rule-set names; their source
-          # rules are merged (OR'd) into a single <name> set so configs can
-          # reference one tag instead of dozens.
-          for m in aggregates/*.txt; do
-            name="$(basename "$m" .txt)"
-            mapfile -t members < <(grep -vE '^\s*(#|$)' "$m")
-            files=(); for x in "${members[@]}"; do files+=("source/$x.json"); done
-            jq -s '{version: 1, rules: (map(.rules) | add)}' "${files[@]}" \
-              > "$OUT/$name.json"
-            sing-box rule-set compile --output "$OUT/$name.srs" "$OUT/$name.json"
-            echo "aggregated $name from ${#members[@]} sets"
-          done
+          # source/cn/*.json are per-app China sets; merge them (OR'd) into
+          # one geosite-cn-common so configs reference a single tag while
+          # each app stays an independent, separately-consumable rule set.
+          jq -s '{version: 1, rules: (map(.rules) | add)}' source/cn/*.json \
+            > "$OUT/geosite-cn-common.json"
+          sing-box rule-set compile \
+            --output "$OUT/geosite-cn-common.srs" "$OUT/geosite-cn-common.json"
+          echo "aggregated geosite-cn-common from $(ls source/cn/*.json | wc -l) sets"
 
       - name: Mirror upstream rule sets
         run: |

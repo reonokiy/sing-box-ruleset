@@ -23,16 +23,24 @@ https://raw.githubusercontent.com/reonokiy/sing-box-ruleset/rule-set/<name>.json
 | `geosite-apple` | Apple / iCloud / App Store |
 | `geosite-category-public-tracker` | Public BitTorrent trackers |
 | `geosite-category-ads-all` | Ad / tracking / analytics domains |
+| `geosite-bilibili` | Bilibili (mainland: site, API, CDN, games) |
+| `geosite-cn-common` | Common mainland China sites (Baidu/Ali/Tencent/ByteDance/…) |
 
 These are **hand-curated**, not generated from upstream. They are starter
 lists meant to be grown over time — add domains to the relevant
 `source/*.json` and push; CI rebuilds the `rule-set` branch automatically.
 
-## Not maintained here (intentionally)
+`geosite-bilibili` and `geosite-cn-common` deliberately exclude
+overseas-facing variants (e.g. `bilibili.tv`) since they are consumed for
+**China-direct** routing.
+
+## Mirrored from upstream
 
 `geoip-cn` and `geosite-geolocation-!cn` are too large to hand-maintain
-(China IP CIDRs / "every non-China domain"). Configs keep pointing those at
-[SagerNet](https://github.com/SagerNet)'s generated rule sets.
+(China IP CIDRs / "every non-China domain"). CI mirrors them as-is from
+[SagerNet](https://github.com/SagerNet) into the `rule-set` branch (weekly +
+on every build), so configs only ever reference this repo — the data is
+unchanged upstream data, just served from here.
 
 ## Source format
 

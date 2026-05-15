@@ -6,6 +6,9 @@ on:
     paths:
       - "source/**"
       - ".github/workflows/build.yml"
+  schedule:
+    # weekly, keeps the mirrored upstream sets fresh
+    - cron: "17 4 * * 1"
   workflow_dispatch:
 
 permissions:
@@ -45,6 +48,20 @@ jobs:
             cp "$f" "$out/$name.json"
             echo "compiled $name"
           done
+
+      - name: Mirror upstream rule sets
+        run: |
+          set -euo pipefail
+          # Too large to hand-maintain; mirrored from SagerNet so configs
+          # only ever reference this repo. Data is unchanged upstream data.
+          curl -fsSL -o "$OUT/geoip-cn.srs" \
+            "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs"
+          curl -fsSL -o "$OUT/geosite-geolocation-!cn.srs" \
+            "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs"
+          # sanity-check they are valid rule-set binaries
+          sing-box rule-set decompile --output /dev/null "$OUT/geoip-cn.srs"
+          sing-box rule-set decompile --output /dev/null "$OUT/geosite-geolocation-!cn.srs"
+          echo "mirrored geoip-cn ($(stat -c%s "$OUT/geoip-cn.srs")B), geosite-geolocation-!cn ($(stat -c%s "$OUT/geosite-geolocation-!cn.srs")B)"
 
       - name: Publish to rule-set branch
         run: |

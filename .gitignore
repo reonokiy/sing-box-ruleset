@@ -1,0 +1,3 @@
+*.srs
+dist/
+.DS_Store

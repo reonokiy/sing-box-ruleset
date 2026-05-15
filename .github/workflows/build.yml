@@ -1,0 +1,66 @@
+name: build rule-set
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "source/**"
+      - ".github/workflows/build.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-rule-set
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install sing-box
+        run: |
+          set -euo pipefail
+          tag="$(curl -fsSL https://api.github.com/repos/SagerNet/sing-box/releases/latest | jq -r .tag_name)"
+          ver="${tag#v}"
+          echo "sing-box ${ver}"
+          curl -fsSL -o sing-box.tar.gz \
+            "https://github.com/SagerNet/sing-box/releases/download/${tag}/sing-box-${ver}-linux-amd64.tar.gz"
+          tar -xzf sing-box.tar.gz
+          sudo install -m755 "sing-box-${ver}-linux-amd64/sing-box" /usr/local/bin/sing-box
+          sing-box version
+
+      - name: Compile rule sets
+        run: |
+          set -euo pipefail
+          out="$(mktemp -d)"
+          echo "OUT=$out" >> "$GITHUB_ENV"
+          for f in source/*.json; do
+            name="$(basename "$f" .json)"
+            sing-box rule-set compile --output "$out/$name.srs" "$f"
+            cp "$f" "$out/$name.json"
+            echo "compiled $name"
+          done
+
+      - name: Publish to rule-set branch
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git switch --orphan rule-set
+          find . -maxdepth 1 -mindepth 1 -not -name .git -exec rm -rf {} +
+          cp "$OUT"/* .
+          {
+            echo "# rule-set (generated)"
+            echo
+            echo "Built from \`source/\` on \`main\` by CI. Do not edit by hand."
+            echo
+            echo "_$(date -u +%Y-%m-%dT%H:%M:%SZ)_"
+          } > README.md
+          git add -A
+          git commit -m "build: rule-set from ${GITHUB_SHA::7}"
+          git push -f origin rule-set

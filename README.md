@@ -23,9 +23,8 @@ https://raw.githubusercontent.com/reonokiy/sing-box-ruleset/rule-set/<name>.json
 | `geosite-apple` | Apple / iCloud / App Store |
 | `geosite-category-public-tracker` | Public BitTorrent trackers |
 | `geosite-category-ads-all` | Ad / tracking / analytics domains |
-| `geosite-bilibili` | Bilibili (mainland: site, API, CDN, games) |
-| `source/cn/geosite-<app>` | One set per mainland app/company (`geosite-baidu`, `geosite-tencent`, `geosite-bytedance`, …) |
-| `geosite-cn-common` | CI aggregate of every `source/cn/` set (one tag for configs) |
+| `source/cn/geosite-<app>` | One set per mainland app/company (`geosite-baidu`, `geosite-tencent`, `geosite-bilibili`, …) |
+| `geosite-cn-common` | CI aggregate of every `source/cn/` set, incl. bilibili (one tag for configs) |
 
 These are **hand-curated**, not generated from upstream. They are starter
 lists meant to be grown over time — add domains to the relevant

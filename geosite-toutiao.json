@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_suffix": [
+        "toutiao.com",
+        "toutiaoimg.com",
+        "toutiaostatic.com"
+      ]
+    }
+  ]
+}

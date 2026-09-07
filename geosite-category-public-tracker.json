@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain": [
+        "tracker.opentrackr.org",
+        "open.tracker.cl",
+        "open.demonii.com",
+        "open.stealth.si",
+        "tracker.openbittorrent.com",
+        "tracker.torrent.eu.org",
+        "exodus.desync.com",
+        "tracker.coppersurfer.tk",
+        "tracker.leechers-paradise.org",
+        "tracker.internetwarriors.net",
+        "tracker.dler.org",
+        "tracker.tiny-vps.com",
+        "tracker.moeking.me",
+        "tracker.bittor.pw",
+        "tracker.theoks.net",
+        "tracker.qu.ax",
+        "tracker.srv00.com",
+        "tracker.cyberia.is",
+        "tracker.files.fm",
+        "tracker.0x.tf",
+        "open.free-tracker.ga",
+        "opentracker.i2p.rocks",
+        "explodie.org",
+        "uploads.gamecoast.net",
+        "p4p.arenabg.com",
+        "movies.zsw.ca",
+        "wepzone.net",
+        "retracker.lanta.me",
+        "bt1.archive.org",
+        "bt2.archive.org",
+        "isvr.org"
+      ]
+    },
+    {
+      "domain_suffix": [
+        "opentrackr.org",
+        "openbittorrent.com",
+        "coppersurfer.tk",
+        "leechers-paradise.org",
+        "demonii.com"
+      ]
+    }
+  ]
+}

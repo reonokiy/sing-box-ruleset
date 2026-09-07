@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_suffix": [
+        "apple.com",
+        "apple.com.cn",
+        "apple.co",
+        "apple.news",
+        "applsecdn.com",
+        "appstore.com",
+        "itunes.com",
+        "icloud.com",
+        "icloud.com.cn",
+        "icloud-content.com",
+        "icloud-content.com.cn",
+        "cdn-apple.com",
+        "aaplimg.com",
+        "mzstatic.com",
+        "me.com",
+        "mac.com",
+        "apple-cloudkit.com",
+        "apple-dns.net",
+        "apzones.com",
+        "crashlytics.com",
+        "pancake.apple.com",
+        "ess.apple.com",
+        "push.apple.com",
+        "appstore.apple.com",
+        "swcdn.apple.com",
+        "updates.cdn-apple.com",
+        "updates-http.cdn-apple.com",
+        "gs.apple.com",
+        "mesu.apple.com",
+        "ckdatabasews.icloud.com",
+        "iadsdk.apple.com",
+        "smoot.apple.com",
+        "books.apple.com",
+        "tv.apple.com",
+        "music.apple.com",
+        "podcasts.apple.com",
+        "fitness.apple.com",
+        "testflight.apple.com",
+        "developer.apple.com"
+      ]
+    }
+  ]
+}

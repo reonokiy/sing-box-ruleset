@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_suffix": [
+        "jd.com",
+        "jdcloud.com",
+        "360buyimg.com",
+        "jddebug.com"
+      ]
+    }
+  ]
+}

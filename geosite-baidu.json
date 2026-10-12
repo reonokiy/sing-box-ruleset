@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_suffix": [
+        "baidu.com",
+        "bdstatic.com",
+        "bdimg.com",
+        "baidubce.com",
+        "bcebos.com",
+        "baidupcs.com",
+        "baidubcr.com"
+      ]
+    }
+  ]
+}

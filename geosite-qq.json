@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_suffix": [
+        "qq.com",
+        "qpic.cn",
+        "qlogo.cn",
+        "gtimg.com",
+        "gtimg.cn",
+        "idqqimg.com"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_suffix": [
+        "alibaba.com",
+        "1688.com",
+        "alicdn.com",
+        "alibabausercontent.com"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_suffix": [
+        "tencent.com",
+        "tencent-cloud.com",
+        "myqcloud.com",
+        "qcloud.com",
+        "tencentcs.com"
+      ]
+    }
+  ]
+}

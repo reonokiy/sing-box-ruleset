@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_suffix": [
+        "openai.com",
+        "chatgpt.com",
+        "oaistatic.com",
+        "oaiusercontent.com",
+        "sora.com",
+        "openaiapi-site.azureedge.net",
+        "openaicom.imgix.net"
+      ]
+    }
+  ]
+}
